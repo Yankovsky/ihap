@@ -57,8 +57,8 @@ module.exports = function (grunt) {
         tasks: ['newer:coffee:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
+        tasks: ['newer:stylus', 'autoprefixer']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
       livereload: {
         files: [
           '<%= yeoman.app %>/<%= yeoman.views %>/{,*//*}*.{html,jade}',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
+          '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.styl',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
         ],
@@ -123,6 +123,22 @@ module.exports = function (grunt) {
       },
       server: '.tmp'
     },
+
+	  stylus: {
+		  compile: {
+			  options: {
+				  compress: true,
+				  paths: ['node_modules/grunt-contrib-stylus/node_modules']
+			  },
+			  files: [{
+				  expand: true,
+				  cwd: '<%= yeoman.app %>/styles',
+				  src: '{,*/}*.styl',
+				  dest: '.tmp/styles/',
+				  ext: '.css'
+			  }]
+		  }
+	  },
 
     // Add vendor prefixed styles
     autoprefixer: {
@@ -313,12 +329,6 @@ module.exports = function (grunt) {
             'lib/**/*'
           ]
         }]
-      },
-      styles: {
-        expand: true,
-        cwd: '<%= yeoman.app %>/styles',
-        dest: '.tmp/styles/',
-        src: '{,*/}*.css'
       }
     },
 
@@ -326,15 +336,15 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
-        'copy:styles'
+        'stylus'
       ],
       test: [
         'coffee',
-        'copy:styles'
+        'stylus'
       ],
       dist: [
         'coffee',
-        'copy:styles',
+        'stylus',
         'imagemin',
         'svgmin',
         'htmlmin'
@@ -347,7 +357,7 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
+    //       '<%= yeoman.dist %>/styles/main.styl': [
     //         '.tmp/styles/{,*/}*.css',
     //         '<%= yeoman.app %>/styles/{,*/}*.css'
     //       ]
