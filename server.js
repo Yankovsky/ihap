@@ -24,11 +24,7 @@ require('./lib/db/dummydata');
 require('./lib/config/express')(app);
 
 // Controllers
-var api = require('./lib/controllers/api'),
-    index = require('./lib/controllers');
-
-// Server Routes
-app.get('/api/awesomeThings', api.awesomeThings);
+var index = require('./lib/controllers');
 
 // Angular Routes
 app.get('/partials/*', index.partials);

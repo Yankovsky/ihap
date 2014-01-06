@@ -21,18 +21,18 @@ var museums = [],
 function saveResults() {
 	Museum.find({}).remove(function() {
 		Museum.create(museums, function(err) {
-				console.log('museums spizjeni')
+					console.log('museums spizjeni')
 
-				fs.writeFile(path.join(__dirname, 'museums.json'), JSON.stringify(museums), function(err) {
-					if(err) {
-						console.log(err);
-					} else {
-						console.log("The file was saved!");
-					}
-				});
+					fs.writeFile(path.join(__dirname, '../lib/db/museums.json'), JSON.stringify(museums), function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("The file was saved!");
+						}
+					});
 
 					mongoose.disconnect()
-			}
+				}
 		)
 	})
 }
