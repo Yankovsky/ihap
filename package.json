@@ -48,7 +48,9 @@
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "grunt-contrib-stylus": "~0.11.0"
+    "grunt-contrib-stylus": "~0.11.0",
+    "request": "~2.30.0",
+    "cheerio": "~0.13.0"
   },
   "engines": {
     "node": ">=0.8.0"
